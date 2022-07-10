@@ -2,19 +2,19 @@
     <div class="wrapper">
         <HeaderComponent></HeaderComponent>
         <div class="wrap-form">
-            <form action="" method="POST">
+            <form>
                 <div class="form-group">
                     <label for="">User name: </label>
-                    <input type="text" class="form-control" placeholder="Enter your user name...">
+                    <input type="text" name="userName" class="form-control" placeholder="Enter your user name..." v-model="userName">
                 </div>
 
                 <div class="form-group">
                     <label for="">Password: </label>
-                    <input type="password" class="form-control" placeholder="Enter your password...">
+                    <input type="password" name="password" class="form-control" placeholder="Enter your password..." v-model="password">
                 </div>
 
                 <div class="form-submit">
-                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-success" @click.prevent="postLogin()">Submit</button>
                 </div>
             </form>
         </div>
@@ -23,11 +23,33 @@
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import axios from 'axios';
 export default {
     name: 'Login',
     components: {HeaderComponent},
     setup () {        
         return {}
+    },
+    methods: {
+        postLogin() {
+            axios.post("http://127.0.0.1:3000/" , {
+                userName: this.userName,
+                password: this.password
+            }).then((re) => {
+                if(re.data === 1) {
+                    alert('Dang nhap thanh cong');
+                }
+                else {
+                    alert('dang nhap that bai');
+                }
+            })  
+        }
+    },
+    data() {
+        return {
+            userName: '',
+            password: ''
+        }
     }
 }
 </script>
