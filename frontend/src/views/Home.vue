@@ -9,6 +9,7 @@
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import axios from 'axios';
 export default {
     name: 'Home',
     components: {
@@ -16,7 +17,21 @@ export default {
     },
     setup () {
         return {}
-    }
+    },
+    methods: {
+        getData() {
+            axios.get(process.env.VUE_APP_BASEURL + 'routers')
+            .then((re) => {
+                console.log(re.data);
+            }) 
+        }
+    },
+    mounted() {
+        this.getData();
+    },
+    updated() {
+                this.getData();
+    },
 }
 </script>
 

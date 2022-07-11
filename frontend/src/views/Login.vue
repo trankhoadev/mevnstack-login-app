@@ -32,15 +32,20 @@ export default {
     },
     methods: {
         postLogin() {
-            axios.post("http://127.0.0.1:3000/" , {
+            let URL = process.env.VUE_APP_BASEURL + 'isAuth';
+
+            axios.post(URL, 
+            {
                 userName: this.userName,
                 password: this.password
             }).then((re) => {
+                console.log(re.data);
                 if(re.data === 1) {
-                    alert('Dang nhap thanh cong');
+                    alert('Login successfully !');
+                    this.$router.push('/home');
                 }
                 else {
-                    alert('dang nhap that bai');
+                    alert('Login fail !');
                 }
             })  
         }
